@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Peace Treaty for Dikshaa 🕊️</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mint: #a8edcc;
+    --mint-light: #d4f7e8;
+    --mint-dark: #5ecda0;
+    --lemon: #fff176;
+    --lemon-dark: #f9e34b;
+    --white: #ffffff;
+    --soft-bg: #f0fdf7;
+    --text-dark: #2d5a45;
+    --text-mid: #4a7c62;
+    --text-light: #7aab91;
+    --bubble-shadow: 0 4px 20px rgba(94,205,160,0.25);
+    --card-shadow: 0 8px 32px rgba(94,205,160,0.15);
+    --radius-bubble: 999px;
+    --radius-card: 24px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    background: var(--soft-bg);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* floating blobs background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -120px; left: -120px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(168,237,204,0.35) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatBlob 8s ease-in-out infinite;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -100px; right: -100px;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(255,241,118,0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatBlob 10s ease-in-out infinite reverse;
+  }
+  @keyframes floatBlob {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(20px,20px) scale(1.08); }
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 60px 20px 20px;
+  }
+  .hero-emoji {
+    font-size: 64px;
+    display: block;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.2;
+    margin: 16px 0 10px;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--text-mid);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ── STATUS BAR ── */
+  .status-bar {
+    background: var(--white);
+    border: 2.5px solid var(--mint);
+    border-radius: 20px;
+    padding: 18px 28px;
+    margin: 30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: var(--card-shadow);
+    flex-wrap: wrap;
+  }
+  .status-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .status-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    transition: all 0.4s ease;
+  }
+  .status-value.changed {
+    color: #1a8a5f;
+    animation: statusPop 0.5s ease;
+  }
+  @keyframes statusPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .status-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #ff6b6b;
+    animation: pulse 1.5s ease-in-out infinite;
+    transition: background 0.4s ease;
+  }
+  .status-dot.green { background: var(--mint-dark); }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.7; }
+  }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 24px;
+  }
+  section { margin: 50px 0; }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius-card);
+    border: 2px solid var(--mint-light);
+    padding: 28px;
+    box-shadow: var(--card-shadow);
+  }
+
+  /* ── MEMORY CAROUSEL ── */
+  .carousel-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background: var(--white);
+    border: 2px solid var(--mint-light);
+    box-shadow: var(--card-shadow);
+  }
+  .carousel-track {
+    display: flex;
+    transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+  }
+  .carousel-slide {
+    min-width: 100%;
+    padding: 40px 28px;
+    text-align: center;
+  }
+  .slide-emoji { font-size: 60px; display: block; margin-bottom: 16px; }
+  .slide-title { font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+  .slide-desc { font-size: 0.95rem; color: var(--text-mid); line-height: 1.6; max-width: 420px; margin: 0 auto; }
+  .carousel-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-top: 1.5px solid var(--mint-light);
+  }
+  .carousel-btn {
+    background: var(--mint);
+    border: none;
+    border-radius: var(--radius-bubble);
+    width: 38px; height: 38px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s, transform 0.15s;
+    color: var(--text-dark);
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .carousel-btn:hover { background: var(--mint-dark); transform: scale(1.1); }
+  .carousel-dots { display: flex; gap: 6px; }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--mint-light);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    border: none;
+  }
+  .dot.active { background: var(--mint-dark); transform: scale(1.3); }
+
+  /* ── PEACE GRID ── */
+  .peace-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+  }
+  .peace-item {
+    background: var(--white);
+    border: 2px solid var(--mint-light);
+    border-radius: 20px;
+    padding: 20px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 3px 12px rgba(94,205,160,0.1);
+  }
+  .peace-item:hover { transform: translateY(-4px); border-color: var(--mint-dark); box-shadow: var(--bubble-shadow); }
+  .peace-item.selected { border-color: var(--mint-dark); background: var(--mint-light); }
+  .peace-icon { font-size: 34px; display: block; margin-bottom: 10px; }
+  .peace-label { font-size: 0.85rem; font-weight: 600; color: var(--text-dark); line-height: 1.3; }
+
+  /* ── FORGIVENESS METER ── */
+  .meter-wrap { padding: 10px 0 20px; }
+  .meter-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-mid);
+  }
+  .meter-labels span:last-child { color: #1a8a5f; }
+  .meter-slider-wrap { position: relative; }
+  input[type=range]#forgiveness {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 14px;
+    border-radius: 999px;
+    background: linear-gradient(to right, #ffb3b3, #ffe082, #a8edcc);
+    outline: none;
+    cursor: pointer;
+  }
+  input[type=range]#forgiveness::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid var(--mint-dark);
+    box-shadow: 0 2px 12px rgba(94,205,160,0.4);
+    cursor: grab;
+    transition: transform 0.15s;
+  }
+  input[type=range]#forgiveness::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.2); }
+  input[type=range]#forgiveness::-moz-range-thumb {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid var(--mint-dark);
+    cursor: grab;
+  }
+  .meter-readout {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    min-height: 2em;
+    transition: all 0.3s ease;
+  }
+
+  /* ── BUTTONS ── */
+  .btn {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    border-radius: var(--radius-bubble);
+    padding: 14px 32px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+    display: inline-block;
+  }
+  .btn-mint {
+    background: var(--mint);
+    color: var(--text-dark);
+    box-shadow: 0 4px 16px rgba(94,205,160,0.3);
+  }
+  .btn-mint:hover { background: var(--mint-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(94,205,160,0.45); }
+  .btn-lemon {
+    background: var(--lemon);
+    color: var(--text-dark);
+    box-shadow: 0 4px 16px rgba(249,227,75,0.35);
+  }
+  .btn-lemon:hover { background: var(--lemon-dark); transform: translateY(-2px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-light);
+    border: 2px solid var(--mint-light);
+  }
+  .btn-ghost:hover { border-color: var(--mint-dark); color: var(--text-dark); }
+
+  .btn-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 24px;
+  }
+
+  /* runaway button */
+  #btn-mad-wrap { position: relative; display: inline-block; }
+  #btn-stay-mad {
+    background: #ffe0e0;
+    color: #cc4444;
+    border: 2px solid #ffb3b3;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  #btn-stay-mad:hover { cursor: not-allowed; }
+
+  /* ── TRUCE CONTRACT ── */
+  .signature-area {
+    margin-top: 20px;
+  }
+  .sig-input {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 14px 20px;
+    border: 2.5px dashed var(--mint-dark);
+    border-radius: 16px;
+    width: 100%;
+    outline: none;
+    color: var(--text-dark);
+    background: var(--mint-light);
+    transition: border-color 0.2s, background 0.2s;
+    text-align: center;
+  }
+  .sig-input:focus { border-color: #1a8a5f; background: var(--white); }
+  .sig-hint { font-size: 0.82rem; color: var(--text-light); text-align: center; margin-top: 8px; }
+  .truce-signed {
+    display: none;
+    text-align: center;
+    padding: 24px;
+    background: linear-gradient(135deg, var(--mint-light), var(--lemon));
+    border-radius: 20px;
+    border: 2px solid var(--mint-dark);
+    margin-top: 20px;
+    animation: signedIn 0.5s ease;
+  }
+  @keyframes signedIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .truce-signed .big-emoji { font-size: 52px; display: block; margin-bottom: 8px; }
+  .truce-signed h3 { font-size: 1.4rem; font-weight: 700; color: var(--text-dark); }
+  .truce-signed p { color: var(--text-mid); margin-top: 6px; }
+
+  /* ── CONFETTI ── */
+  #confetti-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 40px 20px 20px;
+    color: var(--text-light);
+    font-size: 0.88rem;
+  }
+
+  /* ── MISC ── */
+  .tag {
+    display: inline-block;
+    background: var(--mint-light);
+    color: var(--text-mid);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+
+  .divider {
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--mint), var(--lemon), var(--mint), transparent);
+    border-radius: 999px;
+    margin: 48px 0;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 480px) {
+    .status-bar { flex-direction: column; text-align: center; }
+    .peace-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-emoji">🕊️</span>
+    <h1>The Peace Treaty<br>for Dikshaa</h1>
+    <p>An official, legally binding (in the court of friendship) document requesting the end of hostilities and the beginning of snacks.</p>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <div>
+      <div class="status-label">Friendship Status</div>
+      <div class="status-value" id="status-text">Current Status: In the Doghouse 🐕</div>
+    </div>
+    <div class="status-indicator">
+      <div class="status-dot" id="status-dot"></div>
+      <span style="font-size:0.85rem; color: var(--text-light); font-weight:600;">Live</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MEMORY CAROUSEL -->
+  <section>
+    <div class="tag">Section 1</div>
+    <div class="section-title">Memory Carousel 🎠</div>
+    <div class="section-sub">Exhibit A through E of why we're actually great together.</div>
+
+    <div class="carousel-wrap" id="carousel">
+      <div class="carousel-track" id="track">
+        <div class="carousel-slide">
+          <span class="slide-emoji">😂</span>
+          <div class="slide-title">That One Time We Got Lost</div>
+          <div class="slide-desc">Two GPS apps, three wrong turns, and somehow we ended up having the best evening anyway. Classic us.</div>
+        </div>
+        <div class="carousel-slide">
+          <span class="slide-emoji">🍕</span>
+          <div class="slide-title">The Pizza Incident of Last Year</div>
+          <div class="slide-desc">We ordered "a little too much" pizza and proceeded to finish every single slice. No regrets, only memories.</div>
+        </div>
+        <div class="carousel-slide">
+          <span class="slide-emoji">📸</span>
+          <div class="slide-title">That Photoshoot Nobody Asked For</div>
+          <div class="slide-desc">We took 200 photos, kept exactly 3, and laughed until we cried. The outtakes are a national treasure.</div>
+        </div>
+        <div class="carousel-slide">
+          <span class="slide-emoji">🎬</span>
+          <div class="slide-title">The Marathon Movie Night</div>
+          <div class="slide-desc">Started at 7pm, ended sometime after 2am, snacks consumed: uncountable. Best. Night. Ever.</div>
+        </div>
+        <div class="carousel-slide">
+          <span class="slide-emoji">🧃</span>
+          <div class="slide-title">The Vending Machine Drama</div>
+          <div class="slide-desc">It got stuck. We panicked. We problem-solved. We triumphed. The juice was worth it.</div>
+        </div>
+      </div>
+      <div class="carousel-nav">
+        <button class="carousel-btn" id="prev-btn">&#8592;</button>
+        <div class="carousel-dots" id="dots"></div>
+        <button class="carousel-btn" id="next-btn">&#8594;</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PEACE OFFERINGS -->
+  <section>
+    <div class="tag">Section 2</div>
+    <div class="section-title">Peace Offerings 🎁</div>
+    <div class="section-sub">Select all that appeal. I am pre-approving everything. Tap to accept.</div>
+
+    <div class="peace-grid" id="peace-grid">
+      <div class="peace-item" onclick="selectPeace(this)">
+        <span class="peace-icon">☕</span>
+        <div class="peace-label">A Big Coffee (your order, obviously)</div>
+      </div>
+      <div class="peace-item" onclick="selectPeace(this)">
+        <span class="peace-icon">🎬</span>
+        <div class="peace-label">You Pick the Movie (no complaints from me)</div>
+      </div>
+      <div class="peace-item" onclick="selectPeace(this)">
+        <span class="peace-icon">👂</span>
+        <div class="peace-label">Infinite Listening Hours (I will not interrupt)</div>
+      </div>
+      <div class="peace-item" onclick="selectPeace(this)">
+        <span class="peace-icon">🍰</span>
+        <div class="peace-label">Dessert on Me (any bakery, any price)</div>
+      </div>
+      <div class="peace-item" onclick="selectPeace(this)">
+        <span class="peace-icon">📵</span>
+        <div class="peace-label">No Phone During Hangout (full attention mode)</div>
+      </div>
+      <div class="peace-item" onclick="selectPeace(this)">
+        <span class="peace-icon">🎵</span>
+        <div class="peace-label">Your Playlist Only (no DJ battles)</div>
+      </div>
+      <div class="peace-item" onclick="selectPeace(this)">
+        <span class="peace-icon">🤐</span>
+        <div class="peace-label">I'll Say "You Were Right" Out Loud</div>
+      </div>
+      <div class="peace-item" onclick="selectPeace(this)">
+        <span class="peace-icon">🌟</span>
+        <div class="peace-label">One Wildcard Favor (terms: negotiable)</div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px; text-align:right;">
+      <span id="peace-count" style="font-size:0.9rem; color:var(--text-light); font-weight:600;">0 offerings selected</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FORGIVENESS METER -->
+  <section>
+    <div class="tag">Section 3</div>
+    <div class="section-title">Forgiveness Meter 🎚️</div>
+    <div class="section-sub">Drag the slider all the way to the right. You know you want to.</div>
+
+    <div class="card">
+      <div class="meter-wrap">
+        <div class="meter-labels">
+          <span>😤 Still Mad</span>
+          <span>😶 Warming Up</span>
+          <span>🍕 Let's Get Pizza!</span>
+        </div>
+        <input type="range" id="forgiveness" min="0" max="100" value="0" oninput="updateMeter(this.value)">
+        <div class="meter-readout" id="meter-readout">Move the slider... I dare you. 😏</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-lemon" onclick="firePizza()">🍕 Let's Get Pizza!</button>
+        <div id="btn-mad-wrap">
+          <button class="btn" id="btn-stay-mad" onmouseenter="runaway(this)">Stay Mad</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTRACT OF TRUCE -->
+  <section>
+    <div class="tag">Section 4</div>
+    <div class="section-title">Contract of Truce ✍️</div>
+    <div class="section-sub">Digitally binding. Witnessed by the internet.</div>
+
+    <div class="card">
+      <p style="line-height:1.8; color:var(--text-mid); margin-bottom:20px;">
+        I, <strong style="color:var(--text-dark)">Dikshaa</strong>, herewith declare that the Cold War between myself and my absolutely-not-evil friend has officially ended. I acknowledge the peace offerings have been reviewed, the memories are undeniably wonderful, and pizza solves everything. The friendship is hereby restored to its full, chaotic, glorious glory. ✅
+      </p>
+
+      <div class="signature-area">
+        <input type="text" class="sig-input" id="sig-input" placeholder="Type your name here to sign ✍️" maxlength="40" oninput="checkSig()">
+        <div class="sig-hint">Your most official digital signature</div>
+      </div>
+
+      <button class="btn btn-mint" style="margin-top:20px; width:100%;" id="sign-btn" onclick="signTreaty()" disabled>
+        Sign the Treaty 🕊️
+      </button>
+
+      <div class="truce-signed" id="truce-signed">
+        <span class="big-emoji">🎉</span>
+        <h3 id="signed-name">Dikshaa has signed!</h3>
+        <p>The cold war is officially over. Let the pizza commence. 🍕</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  Made with 💚 and a great deal of regret for whatever started this.<br>
+  <em>No friendships were harmed in the making of this peace treaty.</em>
+</div>
+
+<script>
+// ── CAROUSEL ──
+const slides = document.querySelectorAll('.carousel-slide');
+const track = document.getElementById('track');
+const dotsWrap = document.getElementById('dots');
+let current = 0;
+
+slides.forEach((_, i) => {
+  const d = document.createElement('button');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => goTo(i);
+  dotsWrap.appendChild(d);
+});
+
+function goTo(n) {
+  current = (n + slides.length) % slides.length;
+  track.style.transform = `translateX(-${current * 100}%)`;
+  document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  updateStatus();
+}
+
+document.getElementById('prev-btn').onclick = () => goTo(current - 1);
+document.getElementById('next-btn').onclick = () => goTo(current + 1);
+setInterval(() => goTo(current + 1), 5000);
+
+// ── STATUS BAR ──
+let statusChanged = false;
+function updateStatus() {
+  if (!statusChanged) {
+    const s = document.getElementById('status-text');
+    const dot = document.getElementById('status-dot');
+    s.textContent = 'Back to Normal 🤝';
+    s.classList.add('changed');
+    dot.classList.add('green');
+    statusChanged = true;
+  }
+}
+
+// ── PEACE GRID ──
+let peaceCount = 0;
+function selectPeace(el) {
+  el.classList.toggle('selected');
+  peaceCount = document.querySelectorAll('.peace-item.selected').length;
+  document.getElementById('peace-count').textContent = peaceCount + ' offering' + (peaceCount !== 1 ? 's' : '') + ' selected';
+  if (peaceCount > 0) updateStatus();
+}
+
+// ── FORGIVENESS METER ──
+const phrases = [
+  "Move the slider... I dare you. 😏",
+  "Hmm, still cold in here... ❄️",
+  "A slight thaw detected! 🌤️",
+  "I see movement! Progress! 🚀",
+  "We're getting somewhere... 🌈",
+  "Ooh, warming up nicely! ☀️",
+  "Almost there... SO CLOSE! 🙏",
+  "One more nudge... please... 🥺",
+  "YESS!! 🎉 LET'S GET PIZZA!! 🍕"
+];
+
+function updateMeter(val) {
+  const v = parseInt(val);
+  const idx = Math.floor(v / (100 / (phrases.length - 1)));
+  document.getElementById('meter-readout').textContent = phrases[Math.min(idx, phrases.length - 1)];
+  if (v >= 98) { firePizza(); updateStatus(); }
+  else if (v > 20) updateStatus();
+}
+
+// ── RUNAWAY BUTTON ──
+function runaway(btn) {
+  const wrap = document.getElementById('btn-mad-wrap');
+  const maxX = window.innerWidth - wrap.getBoundingClientRect().right - 20;
+  const maxY = window.innerHeight - wrap.getBoundingClientRect().bottom - 20;
+  const rx = (Math.random() - 0.5) * 240;
+  const ry = (Math.random() - 0.5) * 80;
+  const cx = Math.max(-wrap.getBoundingClientRect().left + 10, Math.min(maxX, rx));
+  const cy = Math.max(-wrap.getBoundingClientRect().top + 10, Math.min(maxY, ry));
+  btn.style.transform = `translate(${cx}px, ${cy}px) rotate(${(Math.random()-0.5)*20}deg)`;
+  btn.style.transition = 'transform 0.3s cubic-bezier(0.25, 1.5, 0.5, 1)';
+}
+
+// ── CONFETTI ──
+const canvas = document.getElementById('confetti-canvas');
+const ctx = canvas.getContext('2d');
+let confettis = [];
+let animating = false;
+
+function firePizza() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const colors = ['#a8edcc','#fff176','#5ecda0','#f9e34b','#ff9fad','#84d9ff','#ffb085'];
+  for (let i = 0; i < 140; i++) {
+    confettis.push({
+      x: Math.random() * canvas.width,
+      y: -10,
+      r: 6 + Math.random() * 8,
+      d: Math.random() * 60 + 20,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      tilt: Math.random() * 30 - 15,
+      tiltSpeed: 0.08 + Math.random() * 0.08,
+      speed: 2 + Math.random() * 4,
+      opacity: 1,
+      shape: Math.random() > 0.5 ? 'circle' : 'rect'
+    });
+  }
+  if (!animating) { animating = true; drawConfetti(); }
+  updateStatus();
+}
+
+function drawConfetti() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  confettis.forEach(c => {
+    ctx.save();
+    ctx.globalAlpha = c.opacity;
+    ctx.fillStyle = c.color;
+    ctx.translate(c.x, c.y);
+    ctx.rotate(c.tilt * Math.PI / 180);
+    if (c.shape === 'circle') {
+      ctx.beginPath(); ctx.arc(0, 0, c.r, 0, Math.PI * 2); ctx.fill();
+    } else {
+      ctx.fillRect(-c.r/2, -c.r/2, c.r, c.r * 0.6);
+    }
+    ctx.restore();
+    c.y += c.speed;
+    c.tilt += c.tiltSpeed;
+    c.x += Math.sin(c.d) * 1.2;
+    c.d += 0.03;
+    if (c.y > canvas.height) { c.opacity -= 0.02; }
+  });
+  confettis = confettis.filter(c => c.opacity > 0);
+  if (confettis.length > 0) requestAnimationFrame(drawConfetti);
+  else { animating = false; ctx.clearRect(0, 0, canvas.width, canvas.height); }
+}
+
+// ── SIGNATURE ──
+function checkSig() {
+  const val = document.getElementById('sig-input').value.trim();
+  document.getElementById('sign-btn').disabled = val.length < 2;
+}
+
+function signTreaty() {
+  const name = document.getElementById('sig-input').value.trim();
+  if (!name) return;
+  const box = document.getElementById('truce-signed');
+  document.getElementById('signed-name').textContent = name + ' has signed! 🤝';
+  box.style.display = 'block';
+  document.getElementById('sign-btn').style.display = 'none';
+  document.getElementById('sig-input').disabled = true;
+  firePizza();
+  updateStatus();
+}
+</script>
+</body>
+</html>
